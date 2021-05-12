@@ -7,7 +7,7 @@ There are several approaches to integrate searching within [Apache Atlas](https:
 Atlas search data extractor can be used to synchronize Atlas with Elasticsearch. This method requires you to:
 
 - deploy Elasticsearch
-- register a process that synchronized the data between Atlas and Elasticsearch
+- register a process that synchronizes the data between Atlas and Elasticsearch
 
 We suggest using Elasticsearch as backend for Atlas janusgraph (it's possible with latest Atlas version) and additionally sync data with databuilder
 to have indices compatible with Amundsen Elasticsearch Search Proxy. 

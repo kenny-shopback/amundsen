@@ -49,7 +49,7 @@ class AtlasSearchDataExtractorHelpers:
             [c.get('typeName') for c in classifications if c.get('entityStatus', '').lower() == 'active'])
 
     @staticmethod
-    def get_from_display_text(meanings: List) -> List:
+    def get_display_text(meanings: List) -> List:
         return AtlasSearchDataExtractorHelpers._filter_none(
             [c.get('displayText') for c in meanings if c.get('entityStatus', '').lower() == 'active'])
 
@@ -72,7 +72,7 @@ class AtlasSearchDataExtractorHelpers:
             _charts = query.get('relationshipAttributes', dict()).get('charts', [])
             charts += _charts
 
-        return AtlasSearchDataExtractorHelpers.get_from_display_text(charts)
+        return AtlasSearchDataExtractorHelpers.get_display_text(charts)
 
 
 class AtlasSearchDataExtractor(Extractor):
@@ -118,7 +118,7 @@ class AtlasSearchDataExtractor(Extractor):
             ('column_descriptions', 'relationshipAttributes.columns',
              lambda x: AtlasSearchDataExtractorHelpers.get_entity_descriptions(x), []),
             ('tags', 'relationshipAttributes.meanings',
-             lambda x: AtlasSearchDataExtractorHelpers.get_from_display_text(x), []),
+             lambda x: AtlasSearchDataExtractorHelpers.get_display_text(x), []),
             ('badges', 'classifications',
              lambda x: AtlasSearchDataExtractorHelpers.get_badges_from_classifications(x), []),
             ('display_name', 'attributes.qualifiedName', lambda x: x.split('@')[0], None),
@@ -143,7 +143,7 @@ class AtlasSearchDataExtractor(Extractor):
             ('last_successful_run_timestamp', 'relationshipAttributes.executions',
              lambda x: AtlasSearchDataExtractorHelpers.get_last_successful_execution_timestamp(x), None),
             ('tags', 'relationshipAttributes.meanings',
-             lambda x: AtlasSearchDataExtractorHelpers.get_from_display_text(x), []),
+             lambda x: AtlasSearchDataExtractorHelpers.get_display_text(x), []),
             ('badges', 'classifications',
              lambda x: AtlasSearchDataExtractorHelpers.get_badges_from_classifications(x), [])
         ]
